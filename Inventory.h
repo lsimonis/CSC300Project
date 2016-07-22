@@ -33,22 +33,23 @@ public:
 	* @param	u	UPC of product
 	* @param	q	Quantity to add or remove from Inventory
 	*/
-	void updateQuantity(int u, int q);
+	void updateQuantity(Product &p, int q);
 
 	/** Set quantity of Product in Inventory. 
 	* @param	u	UPC of Product
 	* @param	q	Quantity on hand
 	*/
-	void setQuantity(int u, int q);
+	void setQuantity(Product &p, int q);
 
-	/** Check quantity of Product in Inventory.
-	* @param	u	UPC of Product
-	* @return	Quantity of Product (int)
+	/** Check quantity of  Product on hand.
+	* @param	p	Product to be checked
+	* @return	Integer quantity of Product in Inventory
 	*/
+	int checkQuantity(Product &p);
 
 private:
-	std::fstream* m_file_ptr; 
-	std::fstream m_fstream;
+	//std::fstream* m_file_ptr; 
+	//std::fstream m_fstream;
 	std::string m_file;
 };
 
