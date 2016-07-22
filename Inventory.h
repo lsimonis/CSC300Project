@@ -20,7 +20,7 @@ public:
 
 	/** Add a new Product to the Inventory.
 	* @param	p	Product to add to Inventory
-	* @quantity	q	Initial Quantity
+	* @param	q	Initial Quantity
 	*/
 	void addProduct(Product &p, int q);
 
