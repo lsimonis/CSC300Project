@@ -37,14 +37,20 @@ Menu * Checkout::selectOption(int o, bool & f)
 
 				int upc = 0, quantity = 1;
 				std::cout << "Enter UPC (or <Enter> to complete sale): ";
-				std::getline(std::cin, input);
-
+				std::cin>>input;
+				std::cin.clear();
+				std::cin.sync();
+				std::cout << input;
 				if (!input.empty()) {
 					std::stringstream(input) >> upc;
 					input.clear();	
 
 					std::cout << "\nEnter quantity (or <Enter> for 1): ";
-					std::getline(std::cin, input);
+					std::cin >> input;
+					//std::getline(std::cin, input);
+					std::cin.clear();
+					std::cin.sync();
+					std::cout << input;
 					if (!input.empty()) {
 						std::stringstream(input) >> quantity;
 						input.clear();
