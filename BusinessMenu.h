@@ -12,7 +12,7 @@ public:
 	BusinessMenu();
 	/** Define pure virtual function.
 	*/
-	Menu* getMenu(int o, bool& f);
+	Menu* selectOption(int o, bool& f);
 
 private:
 

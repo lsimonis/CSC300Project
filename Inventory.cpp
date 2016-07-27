@@ -2,12 +2,18 @@
 
 #include <iostream>
 
+
+/* TODO: 
+	* write exception classes
+	* create "tokenize" method to reduce code replication.
+*/
+
 Inventory::Inventory(std::string f) : m_file(f)
 {
 	std::fstream fstr;
 	/* "Touch" inventory file to create it on filesystem. */
 	try {
-		fstr.open(f.c_str(), ios::out);
+		fstr.open(f.c_str(), ios::out|ios::app);
 		if (fstr.fail()) throw std::runtime_error("Failed to create Inventory file");
 		fstr.close();
 	}
@@ -36,16 +42,16 @@ void Inventory::addProduct(Product &p, int q)
 
 		if (fstr.fail()) throw std::runtime_error("Failed to add open Inventory file");
 
-		while (std::getline(fstr, line, '\n')) {	//get each line in inventory file, check upc to prevent duplicates
+		while (std::getline(fstr, line, '\n')) {	//get each line in inventory file, check UPC to prevent duplicates
 			token = line.substr(0, line.find(delimiter));
 			
-			if (token == std::to_string(p.getUpc())) throw std::invalid_argument("That UPC is already in the Inventory. Try updating the existing record instead.");
+			if (token == std::to_string(p.getUPC())) throw std::invalid_argument("That UPC is already in the Inventory. Try updating the existing record instead.");
 
 		}
 		fstr.close();
 		fstr.open(m_file.c_str(), ios::out|ios::app);
 		if (fstr.fail()) throw std::runtime_error("Failed to add open Inventory file");
-		fstr << p.getUpc() << delimiter << p.getName() << delimiter << p.getPrice() << delimiter << q << std::endl;		
+		fstr << p.getUPC() << delimiter << p.getName() << delimiter << p.getPrice() << delimiter << q << std::endl;		
 		fstr.close();
 	}
 	catch (std::runtime_error &e1) {
@@ -70,7 +76,7 @@ void Inventory::removeProduct(Product &p)
 		token2, 
 		token3, 
 		token4, 
-		match = to_string(p.getUpc()), 
+		match = to_string(p.getUPC()), 
 		tempfile = m_file + ".tmp";
 	std::fstream temp_fstream;
 
@@ -173,7 +179,7 @@ void Inventory::updateQuantity(Product &p, int q)
 
 
 
-			if (token1 == std::to_string(p.getUpc())) {
+			if (token1 == std::to_string(p.getUPC())) {
 				quantity = std::stoi(token4);
 				quantity += q;
 				fstr.close();
@@ -192,7 +198,7 @@ void Inventory::updateQuantity(Product &p, int q)
 
 }
 
-void Inventory::setQuantity(Product&p, int q)
+void Inventory::setQuantity(Product &p, int q)
 {
 	std::fstream fstr;
 	int pos,
@@ -222,7 +228,7 @@ void Inventory::setQuantity(Product&p, int q)
 			token4 = line.substr(0, pos);
 
 
-			if (token1 == std::to_string(p.getUpc())) {
+			if (token1 == std::to_string(p.getUPC())) {
 				quantity = q;
 				fstr.close();
 				this->removeProduct(p);
@@ -240,7 +246,7 @@ void Inventory::setQuantity(Product&p, int q)
 
 }
 
-int Inventory::checkQuantity(Product & p)
+int Inventory::checkQuantity(Product &p)
 {
 	std::fstream fstr;
 	int pos,
@@ -269,7 +275,7 @@ int Inventory::checkQuantity(Product & p)
 			pos = line.find('\n');
 			token4 = line.substr(0, pos);
 
-			if (token1 == std::to_string(p.getUpc())) {
+			if (token1 == std::to_string(p.getUPC())) {
 				quantity = std::stoi(token4);
 
 			}
@@ -284,4 +290,87 @@ int Inventory::checkQuantity(Product & p)
 	}
 
 	return quantity;
+}
+
+void Inventory::printInventory() const
+{
+	std::fstream fstr;
+	int pos,
+		quantity = 0;
+	std::string token1,
+		token2,
+		token3,
+		token4,
+		line,
+		delimiter = ",";
+
+	try {	//Open Inventory fstream
+		fstr.open(m_file.c_str(), ios::in);
+		if (fstr.fail()) throw std::runtime_error("Failed to open Inventory file.");
+
+		while (std::getline(fstr, line, '\n')) {	//get each line in inventory file, tokenize csv
+			pos = line.find(delimiter);
+			token1 = line.substr(0, pos);
+			line.erase(0, pos + delimiter.length());
+			pos = line.find(delimiter);
+			token2 = line.substr(0, pos);
+			line.erase(0, pos + delimiter.length());
+			pos = line.find(delimiter);
+			token3 = line.substr(0, pos);
+			line.erase(0, pos + delimiter.length());
+			pos = line.find('\n');
+			token4 = line.substr(0, pos);
+
+			std::cout << "UPC: " << token1 << std::endl
+				<< "Name: " << token2 << std::endl
+				<< "Price: " << token3 << std::endl
+				<< "Quantity: " << token4 << std::endl<<std::endl;
+		}
+	}
+
+	catch (std::runtime_error &e) {
+			std::cerr << e.what() << std::endl;
+	}
+}
+
+Product* Inventory::getProduct(int u)
+{
+	std::fstream fstr;
+	int pos;
+	std::string token1,
+		token2,
+		token3,
+		token4,
+		line,
+		delimiter = ",";
+	Product *product = 0;
+
+	try {	//Open Inventory fstream
+		fstr.open(m_file.c_str(), ios::in);
+		if (fstr.fail()) throw std::runtime_error("Failed to open Inventory file.");
+
+		while (std::getline(fstr, line, '\n')) {	//get each line in inventory file, tokenize csv
+			pos = line.find(delimiter);
+			token1 = line.substr(0, pos);
+			line.erase(0, pos + delimiter.length());
+			pos = line.find(delimiter);
+			token2 = line.substr(0, pos);
+			line.erase(0, pos + delimiter.length());
+			pos = line.find(delimiter);
+			token3 = line.substr(0, pos);
+			line.erase(0, pos + delimiter.length());
+			pos = line.find('\n');
+			token4 = line.substr(0, pos);
+
+			if (std::stoi(token1) == u) {
+				product = new Product(std::stoi(token1),token2,stod(token3));
+			}
+		}
+	}
+
+		catch (std::runtime_error &e) {
+			std::cerr << e.what() << std::endl;
+		}
+
+	return product;
 }

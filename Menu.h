@@ -17,7 +17,7 @@ public:
 	* @param	&f	Flag - quit if true.
 	* @return	Menu to navigate to next.
 	*/
-	virtual Menu* getMenu(int o, bool& f) = 0;
+	virtual Menu* selectOption(int o, bool& f) = 0;
 
 	/** Print the menu. 
 	*/

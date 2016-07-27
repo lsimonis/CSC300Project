@@ -1,5 +1,7 @@
 #include "MainMenu.h"
 #include "BusinessMenu.h"
+#include "ProductMenu.h"
+#include "Checkout.h"
 
 #include <iostream>
 
@@ -13,7 +15,7 @@ MainMenu::MainMenu()
 		+ "\t9) Exit Program\n\n";
 }
 
-Menu * MainMenu::getMenu(int o, bool & f)
+Menu * MainMenu::selectOption(int o, bool & f)
 {
 
 	Menu *nextMenu = 0;
@@ -33,8 +35,12 @@ Menu * MainMenu::getMenu(int o, bool & f)
 		}
 		case 3:
 		{
-			nextMenu = new Checkout;		//revisit this -lsimonis
+			nextMenu = new Checkout;
 			break;
+		}
+		case 9:
+		{
+			f = true;
 		}
 		default:
 		{
@@ -52,6 +58,3 @@ Menu * MainMenu::getMenu(int o, bool & f)
 	return nextMenu;
 }
 
-MainMenu::~MainMenu()
-{
-}

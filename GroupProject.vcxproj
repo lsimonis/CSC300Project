@@ -110,25 +110,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\CSC300_Group_Project_Rev3\CSC300_Group_Project\CSC300_Group_Project\BusinssInfo.cpp" />
-    <ClCompile Include="..\..\CSC300_Group_Project_Rev3\CSC300_Group_Project\CSC300_Group_Project\Product.cpp" />
-    <ClCompile Include="..\..\Invoice.cpp" />
-    <ClCompile Include="..\..\LineItem.cpp" />
     <ClCompile Include="BusinessMenu.cpp" />
+    <ClCompile Include="BusinssInfo.cpp" />
+    <ClCompile Include="Checkout.cpp" />
     <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Invoice.cpp" />
+    <ClCompile Include="LineItem.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Product.cpp" />
+    <ClCompile Include="ProductMenu.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\CSC300_Group_Project_Rev3\CSC300_Group_Project\CSC300_Group_Project\BusinessInfo.h" />
-    <ClInclude Include="..\..\CSC300_Group_Project_Rev3\CSC300_Group_Project\CSC300_Group_Project\Product.h" />
-    <ClInclude Include="..\..\Invoice.h" />
-    <ClInclude Include="..\..\LineItem.h" />
+    <ClInclude Include="BusinessInfo.h" />
     <ClInclude Include="BusinessMenu.h" />
+    <ClInclude Include="Checkout.h" />
     <ClInclude Include="Inventory.h" />
+    <ClInclude Include="Invoice.h" />
+    <ClInclude Include="LineItem.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Product.h" />
+    <ClInclude Include="ProductMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -47,10 +47,21 @@ public:
 	*/
 	int checkQuantity(Product &p);
 
+	/** Print out Inventory.
+	*/
+	void printInventory() const;
+
+	/** Get a Product object based on UPC input.
+	* @param	u	UPC
+	* @return	p	Product.
+	*/
+	Product* getProduct(int u);
+
 private:
 	//std::fstream* m_file_ptr; 
 	//std::fstream m_fstream;
 	std::string m_file;
+
 };
 
 #endif // !INVENTORY_H
