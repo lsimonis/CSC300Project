@@ -38,8 +38,13 @@ Menu * Checkout::selectOption(int o, bool & f)
 					std::cout << "\nEnter quantity: ";
 					std::cin >> quantity;
 
-					LineItem lineitem(*(inventory.getProduct(upc)), quantity);
-					invoice.addLineItem(lineitem);
+					Product *product = inventory.getProduct(upc);
+
+					if (product) {
+						LineItem lineitem(*product, quantity);
+						invoice.addLineItem(lineitem);
+					}
+					else std::cout << "UPC not found!\n";
 
 				}
 				else {

@@ -23,7 +23,7 @@ void Invoice::printInvoice()
 
 	vector<LineItem>::const_iterator it;
 	for (it = m_lineItems.begin(); it < m_lineItems.end(); ++it) {
-		std::cout << "\n\n\t\t***" << m_business.getName() <<"***"<< std::endl
+		std::cout << "\n\n\t\t*** " << m_business.getName() <<" ***"<< std::endl
 			<<"----------------------------------------------\n";
 		std::cout << "Item\t\tQuantity\t\tPrice\n\n";
 		std::cout << it->getProduct()->getName();
@@ -69,7 +69,7 @@ void Invoice::updateInventory() const
 		
 		Product product = *(it->getProduct());
 
-		inventory.updateQuantity(product, it->getQuantity());
+		inventory.updateQuantity(product, -(it->getQuantity()));
 	}
 
 }
