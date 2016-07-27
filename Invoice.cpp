@@ -35,7 +35,9 @@ void Invoice::printInvoice()
 	std::cout << "----------------------------------------------" << std::endl
 		<< "\t\t\tSubtotal:\t$" << this->calculateSubtotal() << std::endl
 		<< "\t\t\tSales Tax:\t$" << this->calculateSalestax() << std::endl
-		<< "\t\t\tTotal:\t\t$" << this->calculateTotal() << std::endl << std::endl;
+		<< "\t\t\tTotal:\t\t$" << this->calculateTotal() << std::endl << std::endl
+		<< "\t\t\tCash:\t\t$" << m_payment << std::endl
+		<< "\t\t\tChange:\t\t$" << m_change << std::endl << std::endl;
 }
 
 double Invoice::calculateSubtotal() const
@@ -77,5 +79,13 @@ void Invoice::updateInventory() const
 bool Invoice::isEmpty() const
 {
 	return m_lineItems.empty();
+}
+
+double Invoice::acceptPayment(double c)
+{
+	m_payment = c;
+	m_change = c - (this->calculateTotal());
+
+	return m_change;
 }
 

@@ -15,6 +15,7 @@ Menu * Checkout::selectOption(int o, bool & f)
 {
 	Menu *nextMenu = 0;
 	bool flag = true;
+	double cash;
 
 	try {
 		switch (o) {
@@ -49,6 +50,12 @@ Menu * Checkout::selectOption(int o, bool & f)
 				}
 				else {
 					if (!invoice.isEmpty()) {
+						std::cout << "Amount due: " << invoice.calculateTotal();
+						
+						std::cout << "\nEnter cash paid: ";
+						std::cin >> cash;
+
+						std::cout << "Change due: " << invoice.acceptPayment(cash);
 						invoice.printInvoice();
 						invoice.updateInventory();
 					}

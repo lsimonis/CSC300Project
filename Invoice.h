@@ -32,10 +32,21 @@ public:
 	*/
 	bool isEmpty() const;
 
+	/** Take cash payment and calculate change.
+	* @param	c	Amount of cash paid.
+	* @return	Change amount.
+	*/
+	double acceptPayment(double c);
+
+	/** Calculate Total.
+	* @return total
+	*/
+	double calculateTotal() const;
 
 private:
 	vector<LineItem> m_lineItems;
 	BusinessInfo m_business;
+	double m_payment, m_change;
 
 		/** Calculate Subtotal.
 		* @return subtotal.
@@ -46,16 +57,6 @@ private:
 		* @return sales tax.
 		*/
 		double calculateSalestax()	const;
-
-		/** Calculate Total.
-		* @return total 
-		*/
-		double calculateTotal() const;
-
-
-
-
-
 };
 
 #endif // !INVOICE_H
