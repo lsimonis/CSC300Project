@@ -19,30 +19,30 @@ public:
 	~Inventory();
 
 	/** Add a new Product to the Inventory.
-	* @param	p	Product to add to Inventory
+	* @param	&p	Product to add to Inventory
 	* @param	q	Initial Quantity
 	*/
 	void addProduct(Product &p, int q);
 
 	/** Remove Product from Inventory.
-	* @param	u	UPC
+	* @param	&p	Product to remove.
 	*/
 	void removeProduct(Product &p);
 
 	/** Increment or decrement quantity of Product in Inventory.
-	* @param	u	UPC of product
+	* @param	&p	Product to modify Inventory record of.
 	* @param	q	Quantity to add or remove from Inventory
 	*/
 	void updateQuantity(Product &p, int q);
 
 	/** Set quantity of Product in Inventory. 
-	* @param	u	UPC of Product
+	* @param	&p	Product to modify Inventory record of.
 	* @param	q	Quantity on hand
 	*/
 	void setQuantity(Product &p, int q);
 
 	/** Check quantity of  Product on hand.
-	* @param	p	Product to be checked
+	* @param	&p	Product to be checked
 	* @return	Integer quantity of Product in Inventory
 	*/
 	int checkQuantity(Product &p);
@@ -53,7 +53,7 @@ public:
 
 	/** Get a Product object based on UPC input.
 	* @param	u	UPC
-	* @return	p	Product.
+	* @return	*p	Product pointer.
 	*/
 	Product* getProduct(int u);
 
