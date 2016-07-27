@@ -3,7 +3,6 @@
 #include "Invoice.h"
 #include <iostream>
 #include <string>
-#include <sstream>
 
 Checkout::Checkout()
 {
@@ -31,33 +30,17 @@ Menu * Checkout::selectOption(int o, bool & f)
 
 
 			while (flag) {
-				std::cin.clear();
-				std::cin.sync();
-				input.clear();
-
 				int upc = 0, quantity = 1;
-				std::cout << "Enter UPC (or <Enter> to complete sale): ";
-				std::cin>>input;
-				std::cin.clear();
-				std::cin.sync();
-				std::cout << input;
-				if (!input.empty()) {
-					std::stringstream(input) >> upc;
-					input.clear();	
+				std::cout << "Enter UPC (or 0 to complete sale): ";
+				std::cin >> upc;
 
-					std::cout << "\nEnter quantity (or <Enter> for 1): ";
-					std::cin >> input;
-					//std::getline(std::cin, input);
-					std::cin.clear();
-					std::cin.sync();
-					std::cout << input;
-					if (!input.empty()) {
-						std::stringstream(input) >> quantity;
-						input.clear();
-					}
-
+				if (upc !=0) {
+					std::cout << "\nEnter quantity: ";
+					std::cin >> quantity;
 
 					LineItem lineitem(*(inventory.getProduct(upc)), quantity);
+					invoice.addLineItem(lineitem);
+
 				}
 				else {
 					if (!invoice.isEmpty()) {

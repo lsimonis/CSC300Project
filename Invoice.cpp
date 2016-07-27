@@ -23,17 +23,19 @@ void Invoice::printInvoice()
 
 	vector<LineItem>::const_iterator it;
 	for (it = m_lineItems.begin(); it < m_lineItems.end(); ++it) {
-		std::cout << "\t\t" << m_business.getName() << std::endl;
-		std::cout << "Item";
+		std::cout << "\n\n\t\t***" << m_business.getName() <<"***"<< std::endl
+			<<"----------------------------------------------\n";
+		std::cout << "Item\t\tQuantity\t\tPrice\n\n";
+		std::cout << it->getProduct()->getName();
 		if ((it->getQuantity()) > 1) 
-			std::cout << "\tX " << it->getQuantity();
-		else std::cout << "\t\t";
+			std::cout << "\t\tX " << (it->getQuantity())<<"\t\t\t";
+		else std::cout << "\t\t\t";
 		std::cout << it->getProduct()->getPrice()<<std::endl;
 	}
-	std::cout << "--------------------------------------------" << std::endl
+	std::cout << "----------------------------------------------" << std::endl
 		<< "\t\t\tSubtotal:\t$" << this->calculateSubtotal() << std::endl
 		<< "\t\t\tSales Tax:\t$" << this->calculateSalestax() << std::endl
-		<< "\t\tTotal:\t$" << this->calculateTotal() << std::endl << std::endl;
+		<< "\t\t\tTotal:\t\t$" << this->calculateTotal() << std::endl << std::endl;
 }
 
 double Invoice::calculateSubtotal() const
@@ -42,19 +44,19 @@ double Invoice::calculateSubtotal() const
 	vector<LineItem>::const_iterator it;
 
 	for (it = m_lineItems.begin(); it < m_lineItems.end(); ++it) {
-		subtotal += it->getProduct()->getPrice();
+		subtotal += (it->getQuantity()) * (it->getProduct()->getPrice());
 	}
 	return subtotal;
 }
 
 double Invoice::calculateSalestax() const
 {
-	return (m_business.getSalesTax()) * (this->calculateSubtotal());
+	return 0.01 * (m_business.getSalesTax()) * (this->calculateSubtotal());
 }
 
 double Invoice::calculateTotal() const
 {
-	return (this->calculateSubtotal()) * (m_business.getSalesTax() + 1);
+	return this->calculateSubtotal() + this->calculateSalestax();
 }
 
 void Invoice::updateInventory() const

@@ -16,5 +16,5 @@ const Product * LineItem::getProduct() const
 
 int LineItem::getQuantity() const
 {
-	return 0;
+	return m_quantity;
 }
