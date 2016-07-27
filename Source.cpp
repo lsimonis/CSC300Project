@@ -31,5 +31,7 @@ int main() {
 
 	}
 
+	delete menu;
+
 	return 0;
 	}
