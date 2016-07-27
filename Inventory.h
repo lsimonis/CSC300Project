@@ -6,8 +6,7 @@
 #include "Product.h"
 
 /** Inventory Class for tracking Products
-* @author Lukas Simonis
-* @version1.0
+* @version 1.0
 */
 class Inventory
 {
